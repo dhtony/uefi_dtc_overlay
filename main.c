@@ -16,7 +16,7 @@
 #define fdt_boot_cpuid_phys(fdt) 	(fdt_get_header(fdt, boot_cpuid_phys))
 #define fdt_size_dt_strings(fdt) 	(fdt_get_header(fdt, size_dt_strings))
 #define fdt_size_dt_struct(fdt)		(fdt_get_header(fdt, size_dt_struct))
-int main(){
+int main(int argc, char **argv){
 //	struct fdt_header *SocDtb = NULL;
 	void * BoardDtb = NULL;
 	void * SocDtbHdr = NULL;
@@ -26,16 +26,27 @@ int main(){
     size_t BoardDtbsize;
     char * BoardDtbbuffer;
     size_t BoardDtbfinal;
-    
     FILE * SocDtbFile;
     size_t SocDtbsize;
     char * SocDtbbuffer;
     size_t SocDtbfinal;
-            
+
+/*
+    for (int i = 0; i < argc; ++i)
+    {
+        printf("argv[%d]: %s\n", i, argv[i]);
+    }
+*/
+    if (argc>3){
+        printf("Wrong input arguments\n");
+        return 1;
+    }
+ printf ("%s will be taken as SOC dtb file\n", argv[1]);
+ printf ("%s will be taken as overlay dtbo file\n", argv[2]);
     /*Open soc Dtb and BoardDtb*/
-    
-    BoardDtbFile= fopen ( "/home/hduan/share/O_dt/sdm845-v2-mtp-overlay.dtbo" , "rb" );
-        if (BoardDtbFile==NULL) {fputs ("File error",stderr); 
+
+    BoardDtbFile= fopen ( argv[2] , "rb" );
+        if (BoardDtbFile==NULL) {printf ("File error %s \n", argv[2]);
         exit (1);
     }
 
@@ -46,19 +57,18 @@ int main(){
 
     // allocating mem for file
     BoardDtbbuffer = (char*) malloc (sizeof(char)*BoardDtbsize);
-    if (BoardDtbbuffer == NULL) {fputs ("Memory error",stderr); exit (2);}
+    if (BoardDtbbuffer == NULL) {fputs ("Memory error\n",stderr); exit (2);}
 
     // copying file into buffer
     BoardDtbfinal = fread (BoardDtbbuffer,1,BoardDtbsize,BoardDtbFile);
-    if (BoardDtbfinal != BoardDtbsize) 
+    if (BoardDtbfinal != BoardDtbsize)
     {
-        fputs ("Reading error",stderr); 
+        fputs ("Reading error",stderr);
         exit (3);
     }
-       
-    
-     SocDtbFile= fopen ( "/home/hduan/share/O_dt/sdm845-v2.dtb" , "rb" );
-        if (SocDtbFile==NULL) {fputs ("File error",stderr); 
+
+     SocDtbFile= fopen ( argv[1] , "rb" );
+        if (SocDtbFile==NULL) {printf ("File error %s \n", argv[1]);
         exit (1);
     }
 
@@ -73,13 +83,12 @@ int main(){
 
     // copying file into buffer
     SocDtbfinal = fread (SocDtbbuffer,1,SocDtbsize,SocDtbFile);
-    if (SocDtbfinal != SocDtbsize) 
+    if (SocDtbfinal != SocDtbsize)
     {
-        fputs ("Reading error",stderr); 
+        fputs ("Reading error",stderr);
         exit (3);
     }
-       
-    
+
     //SocDtbHdr = ufdt_install_blob(SocDtb, fdt_totalsize(SocDtb));
     SocDtbHdr = SocDtbbuffer;
     BoardDtb = BoardDtbbuffer;
@@ -90,16 +99,12 @@ int main(){
     }else{
         printf("ufdt successfully apply overlay\n");
     }
- 
- 
+
     fclose (BoardDtbFile);
     free (BoardDtbbuffer);
-    
-    
+
     fclose (SocDtbFile);
     free (SocDtbbuffer);
-  
-    
-       
+
     return 0;
 }
