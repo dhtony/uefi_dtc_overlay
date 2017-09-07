@@ -1,0 +1,33 @@
+#include <stdio.h>
+#include <string>
+#include "ufdt_overlay.h"
+#define fdt_get_header(fdt, field) \
+	((((const struct fdt_header *)(fdt))->field))
+#define fdt_magic(fdt) 			(fdt_get_header(fdt, magic))
+#define fdt_totalsize(fdt)		(fdt_get_header(fdt, totalsize))
+#define fdt_off_dt_struct(fdt)		(fdt_get_header(fdt, off_dt_struct))
+#define fdt_off_dt_strings(fdt)		(fdt_get_header(fdt, off_dt_strings))
+#define fdt_off_mem_rsvmap(fdt)		(fdt_get_header(fdt, off_mem_rsvmap))
+#define fdt_version(fdt)		(fdt_get_header(fdt, version))
+#define fdt_last_comp_version(fdt) 	(fdt_get_header(fdt, last_comp_version))
+#define fdt_boot_cpuid_phys(fdt) 	(fdt_get_header(fdt, boot_cpuid_phys))
+#define fdt_size_dt_strings(fdt) 	(fdt_get_header(fdt, size_dt_strings))
+#define fdt_size_dt_struct(fdt)		(fdt_get_header(fdt, size_dt_struct))
+int main(){
+	struct fdt_header *SocDtb = NULL;
+	size_t BoardDtb = NULL;
+	void *SocDtbHdr = NULL;
+	void *FinalDtbHdr = NULL;
+    
+    /*Open soc Dtb and BoardDtb*/
+    
+    
+    SocDtbHdr = ufdt_install_blob(SocDtb, fdt_totalsize(SocDtb));
+    FinalDtbHdr = ufdt_apply_overlay(SocDtbHdr, fdt_totalsize(SocDtbHdr), BoardDtb, fdt_totalsize(BoardDtb));
+    if (!FinalDtbHdr) {
+        printf(("ufdt apply overlay failed\n"));
+        return 1;
+    }
+    
+    return 0;
+}
