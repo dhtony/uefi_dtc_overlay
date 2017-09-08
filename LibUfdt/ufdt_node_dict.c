@@ -9,7 +9,7 @@
 #define DICT_LIMIT_NUM 2
 #define DICT_LIMIT_DEN 3
 
-static int _ufdt_node_dict_is_too_full(struct ufdt_node_dict *dict) {
+static bool _ufdt_node_dict_is_too_full(struct ufdt_node_dict *dict) {
   /*
    * We say a dict is too full if it's DICT_LIMIT_NUM / DICT_LIMIT_DEN full.
    */

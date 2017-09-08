@@ -271,7 +271,7 @@ int node_cmp(const void *a, const void *b);
  * @return: true if they're equal.
  *          false otherwise
  */
-int node_name_eq(const struct ufdt_node *node, const char *name, int len);
+bool node_name_eq(const struct ufdt_node *node, const char *name, int len);
 
 /*
  * Merges tree_b into tree_a with tree_b has all nodes except root disappeared.

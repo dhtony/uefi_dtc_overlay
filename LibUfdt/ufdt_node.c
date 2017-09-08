@@ -8,7 +8,7 @@ int node_cmp(const void *a, const void *b) {
   return dto_strcmp(name_of(na), name_of(nb));
 }
 
-int node_name_eq(const struct ufdt_node *node, const char *name, int len) {
+bool node_name_eq(const struct ufdt_node *node, const char *name, int len) {
   if (!node) return false;
   if (!name) return false;
   if (dto_strncmp(name_of(node), name, len) != 0) return false;

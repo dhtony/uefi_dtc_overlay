@@ -61,8 +61,7 @@
 		if ((err = fdt_check_header(fdt)) != 0) \
 			return err; \
 	}
-typedef unsigned int UINT32;
-#define MAX_UINT32  ((UINT32)0xFFFFFFFF)
+
 int _fdt_check_node_offset(const void *fdt, int offset);
 int _fdt_check_prop_offset(const void *fdt, int offset);
 const char *_fdt_find_string(const char *strtab, int tabsize, const char *s);
