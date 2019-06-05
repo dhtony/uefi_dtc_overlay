@@ -14,7 +14,7 @@
 #else
 #include <libfdt_env.h>
 #endif
-
+#define DTO_ENABLE_DEBUG 1
 #ifdef DTO_ENABLE_DEBUG
 /* Print functions, used for diagnostics.
  *
