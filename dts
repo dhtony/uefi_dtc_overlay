@@ -1,0 +1,378 @@
+/dts-v1/;
+
+/ {
+	model = "Qualcomm Technologies, Inc. SDM 660 PM660 + PM660L MTP DVT2";
+	compatible = "qcom,sdm660-mtp", "qcom,sdm660", "qcom,mtp";
+	qcom,board-id = <0x30008 0x0>;
+
+	fragment@0 {
+		target = <0xffffffff>;
+
+		__overlay__ {
+
+			gpio_keys {
+
+				home_key {
+					gpios = <0xffffffff 0x3c 0x1>;
+				};
+			};
+		};
+	};
+
+	fragment@1 {
+		target = <0xffffffff>;
+
+		__overlay__ {
+
+			tlmm_gpio_key {
+
+				gpio_key_active {
+					phandle = <0x5>;
+
+					mux {
+						pins = "gpio64", "gpio113", "gpio65", "gpio60", "gpio48", "gpio42", "gpio75";
+					};
+
+					config {
+						pins = "gpio64", "gpio113", "gpio65", "gpio60", "gpio48", "gpio42", "gpio75";
+					};
+				};
+
+				gpio_key_suspend {
+					phandle = <0x6>;
+
+					mux {
+						pins = "gpio64", "gpio113", "gpio65", "gpio60", "gpio48", "gpio42", "gpio75";
+					};
+
+					config {
+						pins = "gpio64", "gpio113", "gpio65", "gpio60", "gpio48", "gpio42", "gpio75";
+					};
+				};
+			};
+
+			nfc {
+
+				nfc_enable_suspend {
+					phandle = <0x3>;
+
+					mux {
+						pins = "gpio29", "gpio13";
+						function = "gpio";
+					};
+
+					config {
+						pins = "gpio29", "gpio13";
+						drive-strength = <0x2>;
+						bias-disable;
+					};
+				};
+			};
+		};
+	};
+
+	fragment@2 {
+		target = <0x1>;
+
+		__overlay__ {
+			qcom,dtest-line = <0x2>;
+			qcom,dtest-output = <0x2>;
+		};
+	};
+
+	fragment@3 {
+		target = <0xffffffff>;
+
+		__overlay__ {
+
+			gpio@c500 {
+				status = "okay";
+				qcom,mode = <0x1>;
+				qcom,output-type = <0x0>;
+				qcom,pull = <0x5>;
+				qcom,output-strength = <0x1>;
+				qcom,src-sel = <0x2>;
+				qcom,master-en = <0x1>;
+				qcom,invert = <0x0>;
+				qcom,vin-sel = <0x0>;
+			};
+		};
+	};
+
+	fragment@4 {
+		target = <0xffffffff>;
+
+		__overlay__ {
+
+			mmd1000_msr_driver {
+				wiznova,vdd_3p3_en = <0xffffffff 0x3 0x0>;
+			};
+		};
+	};
+
+	fragment@5 {
+		target = <0xffffffff>;
+
+		__overlay__ {
+
+			qcom,pm660l@3 {
+				phandle = <0x7>;
+
+				pwm@b400 {
+					status = "okay";
+					phandle = <0x1>;
+				};
+
+				qcom,leds@d000 {
+
+					qcom,rgb_2 {
+						linux,name = "red_noti";
+						qcom,start-idx = <0x0>;
+						qcom,idx-len = <0xc>;
+						qcom,duty-pcts = <0xa1e3246 0x5a720000 0x0>;
+						qcom,use-blink;
+						phandle = <0x8>;
+					};
+
+					qcom,rgb_3 {
+						label = "rgb";
+						qcom,id = <0x5>;
+						qcom,mode = "pwm";
+						pwms = <0x1 0x0 0x0>;
+						qcom,pwm-us = <0x3e8>;
+						qcom,max-current = <0xc>;
+						qcom,default-state = "off";
+						linux,name = "blue";
+						qcom,start-idx = <0x0>;
+						qcom,idx-len = <0x16>;
+						qcom,duty-pcts = [01 01 14 1e 28 32 3c 46 50 5a 64 64 5a 50 46 3c 32 28 1e 14 01 01];
+						qcom,use-blink;
+						phandle = <0x9>;
+					};
+				};
+			};
+		};
+	};
+
+	fragment@6 {
+		target = <0xffffffff>;
+
+		__overlay__ {
+
+			nq@28 {
+				qcom,nq-firm = <0xffffffff 0xd 0x0>;
+			};
+		};
+	};
+
+	fragment@7 {
+		target = <0xffffffff>;
+
+		__overlay__ {
+		};
+	};
+
+	fragment@8 {
+		target = <0xffffffff>;
+
+		__overlay__ {
+			pm,otg-output-en = <0xffffffff 0x0 0x0>;
+		};
+	};
+
+	fragment@9 {
+		target = <0xffffffff>;
+
+		__overlay__ {
+			status = "disabled";
+		};
+	};
+
+	fragment@10 {
+		target = <0xffffffff>;
+
+		__overlay__ {
+
+			bq24086-charger {
+			};
+
+			emkit {
+				emkit,gpio-pogo-5v-en = <0xffffffff 0xc 0x0>;
+			};
+		};
+	};
+
+	fragment@11 {
+		target = <0xffffffff>;
+
+		__overlay__ {
+			pinctrl-0 = <0xffffffff 0xffffffff 0xffffffff 0xffffffff>;
+			pinctrl-1 = <0xffffffff 0xffffffff 0xffffffff 0xffffffff>;
+			interrupts = <0x0 0x1 0x2>;
+			interrupt-map = <0x0 0xffffffff 0x0 0x0 0x7d 0x0 0x1 0xffffffff 0x0 0x0 0xdd 0x0 0x2 0xffffffff 0x46 0x0>;
+			interrupt-names = "hc_irq", "pwr_irq", "status_irq";
+			cd-gpios = <0xffffffff 0x46 0x0>;
+		};
+	};
+
+	fragment@12 {
+		target = <0xffffffff>;
+
+		__overlay__ {
+		};
+	};
+
+	fragment@13 {
+		target = <0xffffffff>;
+
+		__overlay__ {
+
+			dsi_panel_pwr_supply {
+				phandle = <0xa>;
+
+				qcom,panel-supply-entry@1 {
+					qcom,supply-min-voltage = <0x2dc6c0>;
+					qcom,supply-max-voltage = <0x2de600>;
+				};
+			};
+
+			qcom,mdss_dsi@0 {
+				phandle = <0xb>;
+
+				qcom,mdss_dsi_ctrl0@c994000 {
+					vdda-3p3-supply = <0xffffffff>;
+					phandle = <0xc>;
+				};
+			};
+		};
+	};
+
+	fragment@14 {
+		target = <0xffffffff>;
+
+		__overlay__ {
+
+			nfc {
+
+				nfc_id_active {
+					phandle = <0x2>;
+
+					mux {
+						pins = "gpio79";
+						function = "gpio";
+					};
+
+					config {
+						pins = "gpio79";
+						drive-strength = <0x2>;
+						bias-disable;
+					};
+				};
+
+				nfc_id_suspend {
+					phandle = <0x4>;
+
+					mux {
+						pins = "gpio79";
+						function = "gpio";
+					};
+
+					config {
+						pins = "gpio79";
+						drive-strength = <0x2>;
+						bias-disable;
+					};
+				};
+			};
+		};
+	};
+
+	fragment@15 {
+		target = <0xffffffff>;
+
+		__overlay__ {
+
+			nq@28 {
+				qcom,nq-id = <0xffffffff 0x4f 0x0>;
+				pinctrl-0 = <0xffffffff 0xffffffff 0x2>;
+				pinctrl-1 = <0xffffffff 0x3 0x4>;
+			};
+		};
+	};
+
+	__symbols__ {
+		gpio_key_active = "/fragment@1/__overlay__/tlmm_gpio_key/gpio_key_active";
+		gpio_key_suspend = "/fragment@1/__overlay__/tlmm_gpio_key/gpio_key_suspend";
+		nfc_enable_suspend = "/fragment@1/__overlay__/nfc/nfc_enable_suspend";
+		pm660l_3 = "/fragment@5/__overlay__/qcom,pm660l@3";
+		pm660l_pwm_4 = "/fragment@5/__overlay__/qcom,pm660l@3/pwm@b400";
+		blue_led = "/fragment@5/__overlay__/qcom,pm660l@3/qcom,leds@d000/qcom,rgb_2";
+		blue_led0 = "/fragment@5/__overlay__/qcom,pm660l@3/qcom,leds@d000/qcom,rgb_3";
+		dsi_panel_pwr_supply = "/fragment@13/__overlay__/dsi_panel_pwr_supply";
+		mdss_dsi = "/fragment@13/__overlay__/qcom,mdss_dsi@0";
+		mdss_dsi0 = "/fragment@13/__overlay__/qcom,mdss_dsi@0/qcom,mdss_dsi_ctrl0@c994000";
+		nfc_id_active = "/fragment@14/__overlay__/nfc/nfc_id_active";
+		nfc_id_suspend = "/fragment@14/__overlay__/nfc/nfc_id_suspend";
+	};
+
+	__fixups__ {
+		soc = "/fragment@0:target:0", "/fragment@10:target:0", "/fragment@13:target:0";
+		tlmm = "/fragment@0/__overlay__/gpio_keys/home_key:gpios:0", "/fragment@1:target:0", "/fragment@6/__overlay__/nq@28:qcom,nq-firm:0", "/fragment@8/__overlay__:pm,otg-output-en:0", "/fragment@10/__overlay__/emkit:emkit,gpio-pogo-5v-en:0", "/fragment@11/__overlay__:interrupt-map:52", "/fragment@11/__overlay__:cd-gpios:0", "/fragment@14:target:0", "/fragment@15/__overlay__/nq@28:qcom,nq-id:0";
+		pm660l_gpios = "/fragment@3:target:0";
+		spi_3 = "/fragment@4:target:0";
+		pm660_gpios = "/fragment@4/__overlay__/mmd1000_msr_driver:wiznova,vdd_3p3_en:0";
+		spmi_bus = "/fragment@5:target:0";
+		i2c_6 = "/fragment@6:target:0", "/fragment@15:target:0";
+		pm660_charger = "/fragment@7:target:0", "/fragment@8:target:0";
+		smb1351_dc = "/fragment@9:target:0";
+		sdhc_2 = "/fragment@11:target:0";
+		sdc2_clk_on = "/fragment@11/__overlay__:pinctrl-0:0";
+		sdc2_cmd_on = "/fragment@11/__overlay__:pinctrl-0:4";
+		sdc2_data_on = "/fragment@11/__overlay__:pinctrl-0:8";
+		sdc2_cd_on = "/fragment@11/__overlay__:pinctrl-0:12";
+		sdc2_clk_off = "/fragment@11/__overlay__:pinctrl-1:0";
+		sdc2_cmd_off = "/fragment@11/__overlay__:pinctrl-1:4";
+		sdc2_data_off = "/fragment@11/__overlay__:pinctrl-1:8";
+		sdc2_cd_off = "/fragment@11/__overlay__:pinctrl-1:12";
+		intc = "/fragment@11/__overlay__:interrupt-map:4", "/fragment@11/__overlay__:interrupt-map:28";
+		i2c_2 = "/fragment@12:target:0";
+		pm660l_l3 = "/fragment@13/__overlay__/qcom,mdss_dsi@0/qcom,mdss_dsi_ctrl0@c994000:vdda-3p3-supply:0";
+		nfc_int_active = "/fragment@15/__overlay__/nq@28:pinctrl-0:0";
+		nfc_enable_active = "/fragment@15/__overlay__/nq@28:pinctrl-0:4";
+		nfc_int_suspend = "/fragment@15/__overlay__/nq@28:pinctrl-1:0";
+	};
+
+	__local_fixups__ {
+
+		fragment@2 {
+			target = <0x0>;
+		};
+
+		fragment@5 {
+
+			__overlay__ {
+
+				qcom,pm660l@3 {
+
+					qcom,leds@d000 {
+
+						qcom,rgb_3 {
+							pwms = <0x0>;
+						};
+					};
+				};
+			};
+		};
+
+		fragment@15 {
+
+			__overlay__ {
+
+				nq@28 {
+					pinctrl-0 = <0x8>;
+					pinctrl-1 = <0x4 0x8>;
+				};
+			};
+		};
+	};
+};
